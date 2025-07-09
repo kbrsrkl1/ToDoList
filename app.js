@@ -21,19 +21,30 @@ function toDoList(){
     `
     liEl.appendChild(checkBtnEl)
     const squareEl = document.createElement("div")
-    squareEl.innerHTML = `
-    <i class="fa-solid fa-trash"></i>
-    `
+    squareEl.innerHTML = `<i class="fa-solid fa-trash"></i>`
     liEl.appendChild(squareEl)
-    
     checkBtnEl.addEventListener("click" , () => {
         liEl.classList.toggle("checked")
     })
 
-
     squareEl.addEventListener("click", () => {
         liEl.remove()
-    })
+        });
+    updateLocalStorage()
+}
 
 
+    
+function updateLocalStorage() {
+    const liEls = document.querySelectorAll("li");
+    const list = [];
+
+    liEls.forEach(liEl => {
+        list.push({
+            name: liEl.innerText,
+            checked: liEl.classList.contains("checked")
+        });
+    });
+
+    localStorage.setItem("list", JSON.stringify(list));
 }
